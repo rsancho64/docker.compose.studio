@@ -33,7 +33,8 @@ We want the db stored in the user\'s folder. Let\'s create a volume `mysqldata` 
 - `ports` host side first; container side second.
 - `volumes` is the volume where the data are stored.
 - `network` the one to which the container will be attached.
-    
+
+- [x] created folder: `mkdir -p /home/ray/server/mysql-phpmyadmin/data/`
 
 ## phpMyAdmin container config
 
@@ -47,18 +48,20 @@ In the same way:
 
 ## Launch the containers
 
-just type `docker compose up -d` in the folder w `docker-compose.yml` file:
+just type `docker compose up -d` in the folder w `docker-compose.yml` (must be this name) file:
 
 `-d`: as 'daemon' (launch -the container- in the background).
 
 If everything goes well networks n volumes should be created; then containers started
 
 ``` bash
-[+] Running 3/3
- ⠿ Network mysql-phpmyadmin  Created                                                              0.1s
- ⠿ Container mysql           Started                                                              0.6s
- ⠿ Container phpmyadmin      Started
-```
+[+] Running 30/2
+ ✔ mysql 10 layers [⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿]      0B/0B      Pulled                              13.0s 
+ ✔ phpmyadmin 18 layers [⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿]      0B/0B      Pulled                  8.1s 
+[+] Running 2/2
+ ✔ Container mysql       Started                                                     3.3s 
+ ✔ Container phpmyadmin  Started                                                     0.5s 
+ ```
 
 Stops the containers:
 
@@ -68,24 +71,24 @@ docker compose down
 
 ## phpMyAdmin
 
-In the browser \`<http://localhost:8081/>\`\` the phpMyAdmin home page should display login form.
+browse \`<http://localhost:8081/>\`\` the phpMyAdmin home page and login form.
 
-You have two options to connect to it:
+Using identifiers specified in the `docker-compose.yml` file you have two options:
 
-- *Username* / **password**: *root* / **root_password**
-- *Username* / **password**: *user_name* / **user_password**
-
-These are obviously the identifiers specified in the `docker-compose.yml` file.
-
-In the first case, you will be administrator of the MySQL DB.
-In the second case, you will only be able to administrate the `database_name` db
+- if root: be admin of the MySQL SGBB.
+    *Username* / **password**: *root* / **root_password**
+- if user: be admin of the `database_name` db only.
+    *Username* / **password**: *user_name* / **user_password**
 
 ## MySQL in command line
+
+MySQL seems have not sh or bash. 
 
 From the host machine, connect to the MySQL database from CLI:
 
 ``` bash
-mysql --host=127.0.0.1 --port=6033 -u root -p # connect as root (pass `root_password`)
+# sudo apt install mysql-client-core-8.0 ; 
+mysql --host=127.0.0.1 --port=6033 -u root -p # as root (pass `root_password`)
 ```
 
 ``` sql
@@ -105,7 +108,7 @@ mysql> SHOW DATABASES; -- as administrator manage all DBs:
 Or as a user:
 
 ``` bash
-mysql --host=127.0.0.1 --port=6033 -u user_name -p
+mysql --host=127.0.0.1 --port=6033 -u user_name -p  # ray
 ```
 
 You will only have access to the databases to which your user has privileges:
@@ -120,17 +123,14 @@ mysql> SHOW DATABASES;
 | performance_schema |
 +--------------------+
 3 rows in set (0,00 sec)
+
 ```
-
-## Download
-
-You can download the complete file below. Note that you have to **rename
-it `docker-compose.yml` to start the containers** :
-
-[
-mysql-phpmyadmin-docker-compose.yml](../files/mysql-phpmyadmin-docker-compose.yml)
 
 ## See also
 
 - [How to install and run Portainer on Ubuntu 22.04?](/en/docker/how-to-install-portainer-on-ubuntu-22-04)
 - [How to reset Portainer password?](/en/docker/how-to-reset-portainer-password)
+
+- [ ] (https://josejuansanchez.org/bd/practica-07/index.html)
+
+
