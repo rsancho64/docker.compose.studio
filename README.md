@@ -128,7 +128,7 @@ mysql> SHOW DATABASES;
 
 ## See also
 
-- [How to install and run Portainer on Ubuntu 22.04?](/en/docker/how-to-install-portainer-on-ubuntu-22-04)
+- [ ] [Portainer on Ubuntu](/en/docker/how-to-install-portainer-on-ubuntu-22-04)
 - [How to reset Portainer password?](/en/docker/how-to-reset-portainer-password)
 
 - [ ] (https://josejuansanchez.org/bd/practica-07/index.html)
